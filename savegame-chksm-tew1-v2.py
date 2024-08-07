@@ -6,7 +6,7 @@ def md5_to_4byte_reduction(data):
     # Compute the MD5 hash of the input data
     md5_hash = hashlib.md5(data).digest()
 
-    # Note on the calculatations below:
+    # Note on the calculations below:
     # The << operator shifts the bits of the byte value to the left
     # e.g. 11111111  (binary representation of 0xFF) << 24 ==
     # 11111111 00000000 00000000 00000000  (24 bits added on the right, binary)

@@ -2,7 +2,7 @@
 
 Note: Still in development. (Limited) testing with EPIC Store PC Version of TEW1:don't expect this to work with non-PC versions of the game. Always backup your saves before editing or replacing the checksum. Data loss is always a possibility if you do not choose to backup your saves prior to running the scripts or editing the file using ImHex.
 
-History: I wanted to practice a some of my levels I found challenging using the chapter choice in NG+ before I ran a Akumu + no-upgrades run. However, I needed a way to remove all the upgrades I had from the previous game. Hence this.
+History: I wanted to practice the levels I found challenging by using the chapter choice in NG+ before I ran a Akumu + no-upgrades run. However, I needed a way to remove all the upgrades I had from the previous game. Hence this.
 
 ## Checksum Calculation Scripts
 
@@ -24,7 +24,9 @@ You can use the ImHex Hex Editor with the provided Pattern file to edit appropri
 
 ![Example of the Pattern Editor](imhex-pattern-editor.png)
 
-Again, this is very much a work in progress.
+Again, this script is very much a work in progress.
+
+### ImHex Editor
 
 - https://github.com/WerWolv/ImHex
 

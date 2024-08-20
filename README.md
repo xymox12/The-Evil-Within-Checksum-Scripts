@@ -22,7 +22,7 @@ The PowerShell script was just out of interest to see how well ChatGPT could con
 
 You can use the ImHex Hex Editor with the provided Pattern file to edit appropriate areas in the inventory.zwei file. After saving the file, run the checksum script to replace the checksum etc.
 
-![Example of the Pattern Editor][imhex-pattern-editor.png]
+![Example of the Pattern Editor](imhex-pattern-editor.png)
 
 Again, this is very much a work in progress.
 

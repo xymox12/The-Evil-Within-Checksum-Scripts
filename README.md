@@ -6,19 +6,28 @@ History: I wanted to practice the levels I found challenging by using the chapte
 
 ## Checksum Calculation Scripts
 
-The python versions are the original scripts:
+I would advise using the Powershell script as that does not require the location of the save file to be hardcoded.
+
+- The python scripts assume the file is within a local folder .\savefiles 
+- All scripts create a new file with '_modified' appended to the filename. This has the new checksum. Replace the original file with this.
+
+### Python
+
+The python versions (in the Python folder) are the original scripts:
 
 1. savegame-chksm-tew1.py
 2. savegame-chksm-tew1-simplified+commented.py
 
-The 2nd script is a simplified version with better commenting
+The first was the original, and cleaner. The 2nd script is a simplified version with a lot more commenting, so that in the distant future I can decipher my reasoning.
 
-The PowerShell script was just out of interest to see how well ChatGPT could convert the python script. It seems to have accomplished this, but after a lot of backwards and forwards. Useful if you don't have Python available. This script is not as tested as the Python scripts.
+### Powershell 
 
-- All scripts assume the file is within a local folder .\savefiles 
-- The scripts create a new file with '_modified' appended to the filename. This has the new checksum. Copy that file into the original savegame folder and rename to replace the original. 
+In the Powershell_Script folder
 
-# ImHex Editor
+The PowerShell script was an experiment how well ChatGPT could convert the python script. It seems to have accomplished this rather well, but after a lot of backwards and forwards. 
+
+
+## ImHex Editor
 
 You can use the ImHex Hex Editor with the provided Pattern file to edit appropriate areas in the inventory.zwei file. After saving the file, run the checksum script to replace the checksum etc.
 

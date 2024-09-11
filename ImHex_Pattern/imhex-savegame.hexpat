@@ -33,6 +33,17 @@ struct WeaponUpgrade {
     u8 Stock [[color("ffa600"),comment("Integer: 1 - 5")]];
 };
 
+
+struct CrossBowBlock {
+    char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
+    padding[46];         
+    u8 Clip_Capacity [[color("bc5090"),comment("Integer: 1 - 5")]];
+    padding[19];
+    u8 Critical [[color("ff764a"),comment("Integer: 1 - 5")]];
+    padding[3];
+    u8 Stock [[color("ffa600"),comment("Integer: 1 - 5")]];
+};
+
 struct WeaponBlock {
     char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
     padding[4];         
@@ -42,7 +53,7 @@ struct WeaponBlock {
 };
 
 struct Stock {
-    padding[15];
+    padding[504];
     u8 Life_Gauge;
     padding[3];
     u8 Maximum_Sprint;
@@ -63,8 +74,8 @@ struct Stock {
 };
 
 
-struct Bolt_Upgrade {
-    padding[55];
+struct Bolt_Upgrades {
+    padding[548];
     u8 Explosive;
     padding[3];
     u8 Shock;
@@ -72,7 +83,7 @@ struct Bolt_Upgrade {
     u8 Freeze;
     padding[3];
     u8 Flash;
-    padding[7];
+    padding[3];
     u8 Harpoon; 
 };
 
@@ -89,7 +100,7 @@ struct Trap_Parts {
 Header Header @ 0x00;
 
 WeaponBlock Handgun @ std::mem::find_string(0,"weapon/upgrade/handgun");
-WeaponBlock CrossBow @ std::mem::find_string(0,"weapon/upgrade/trapgun");
+CrossBowBlock CrossBow @ std::mem::find_string(0,"weapon/upgrade/trapgun");
 WeaponBlock Shotgun @ std::mem::find_string(0,"weapon/upgrade/shotgun");
 WeaponBlock Rifle @ std::mem::find_string(0,"weapon/upgrade/rifle");
 WeaponBlock Magnum @ std::mem::find_string(0,"weapon/upgrade/magnum");
@@ -98,8 +109,8 @@ Green_Gel Gel @ std::mem::find_string(0,"zwei/player/upgrade_item");
 Trap_Parts Parts @ std::mem::find_string(0,"zwei/player/trap_parts");
 
 
-Stock Stock @ std::mem::find_sequence(0, 0x00, 0x00, 0x06, 0x42, 0xC8, 0x00, 0x00, 0x42);
+Stock Stock @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
-Bolt_Upgrade Bolt_Upgrades @ std::mem::find_sequence(0, 0x00, 0x00, 0x06, 0x42, 0xC8, 0x00, 0x00, 0x42);
+Bolt_Upgrades Bolt_Upgrades @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
 //std::print("{0}", hex::http::get("api.hashify.net/hash/md5/hex?value=helloWorld"));

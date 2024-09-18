@@ -26,6 +26,9 @@ In the Powershell_Script folder
 
 The PowerShell script was an experiment how well ChatGPT could convert the python script. It seems to have accomplished this rather well, but after a lot of backwards and forwards. 
 
+I have also added a experimental script to show current death counts (and, as an extra bonus,
+what weapon you will be holding when you launch the game.)
+
 
 ## ImHex Editor
 

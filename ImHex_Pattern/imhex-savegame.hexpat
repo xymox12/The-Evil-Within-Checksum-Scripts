@@ -97,6 +97,13 @@ struct Trap_Parts {
     be u32 Parts [[color("50c878"),comment("Integer")]];
 };
 
+struct Ammo_Handgun {
+    padding[20];
+    u32 Ammo;
+    padding[4];
+    u32 Clip;
+};
+
 Header Header @ 0x00;
 
 WeaponBlock Handgun @ std::mem::find_string(0,"weapon/upgrade/handgun");
@@ -108,9 +115,15 @@ WeaponBlock Magnum @ std::mem::find_string(0,"weapon/upgrade/magnum");
 Green_Gel Gel @ std::mem::find_string(0,"zwei/player/upgrade_item");
 Trap_Parts Parts @ std::mem::find_string(0,"zwei/player/trap_parts");
 
+Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard");
 
 Stock Stock @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
 Bolt_Upgrades Bolt_Upgrades @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
+
+//zwei/player/matchstick 00000005FFFFF00000005
+
+// Death count final word 108 bytes from this pattern following the final weapon: 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01
+
 
 //std::print("{0}", hex::http::get("api.hashify.net/hash/md5/hex?value=helloWorld"));

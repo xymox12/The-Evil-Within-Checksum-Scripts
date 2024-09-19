@@ -115,15 +115,17 @@ WeaponBlock Magnum @ std::mem::find_string(0,"weapon/upgrade/magnum");
 Green_Gel Gel @ std::mem::find_string(0,"zwei/player/upgrade_item");
 Trap_Parts Parts @ std::mem::find_string(0,"zwei/player/trap_parts");
 
-Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard");
-
 Stock Stock @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
 Bolt_Upgrades Bolt_Upgrades @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
-//zwei/player/matchstick 00000005FFFFF00000005
+// TODOs
 
-// Death count final word 108 bytes from this pattern following the final weapon: 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01
+// Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard"); - can be present more than once - like matchstick below need to search for following pattern to also match 00 00 00 ?? FF FF FF FF 00 00 00 ??
+
+//zwei/player/matchstick 000000??FFFFF000000??
+
+// Death count: final 'weapon/' string + weapon-name + padding[104] + deathcount word value
 
 
 //std::print("{0}", hex::http::get("api.hashify.net/hash/md5/hex?value=helloWorld"));

@@ -1,3 +1,5 @@
+Add-Type -AssemblyName System.Windows.Forms
+
 function Get-MD5Hash {
     param (
         [byte[]]$data
@@ -38,8 +40,19 @@ function Convert-MD5To4ByteReduction {
     return $rearranged
 }
 
-# Replace 'path_to_your_file' with the actual path to your binary file
-$filePath = "savefiles/inventory.zwei"
+# Open a file dialog for selecting the file
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms")
+$OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+$OpenFileDialog.InitialDirectory = [System.Environment]::GetFolderPath("Desktop")
+$OpenFileDialog.Filter = "All files (*.*)|*.*"
+$OpenFileDialog.Title = "Select the binary file to process"
+
+if ($OpenFileDialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
+    $filePath = $OpenFileDialog.FileName
+} else {
+    Write-Host "File selection was cancelled. Exiting..."
+    exit
+}
 
 # Read the file data
 $data = [System.IO.File]::ReadAllBytes($filePath)
@@ -71,12 +84,13 @@ if ($originalChecksum -eq $calculatedChecksum) {
     # Combine the new checksum with the rest of the file data
     $newData = $newChecksumBytes + $data[4..($data.Length - 1)]
 
-    # Create the new file name
+    # Generate the new file path by appending "_modified" before the file extension
+    $directory = [System.IO.Path]::GetDirectoryName($filePath)
     $baseName = [System.IO.Path]::GetFileNameWithoutExtension($filePath)
     $ext = [System.IO.Path]::GetExtension($filePath)
-    $newFilePath = "$baseName`_modified$ext"
+    $newFilePath = [System.IO.Path]::Combine($directory, "$baseName`_modified$ext")
 
-    # Write the modified data to a new file
+    # Write the modified data to the new file
     [System.IO.File]::WriteAllBytes($newFilePath, $newData)
 
     Write-Host "New file saved with updated checksum: $newFilePath"

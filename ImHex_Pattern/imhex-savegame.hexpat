@@ -98,10 +98,10 @@ struct Trap_Parts {
 };
 
 struct Ammo_Handgun {
-    padding[20];
-    u32 Ammo;
+    padding[15];
+    be u32 Ammo;
     padding[4];
-    u32 Clip;
+    be u32 Clip;
 };
 
 Header Header @ 0x00;
@@ -119,9 +119,12 @@ Stock Stock @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61
 
 Bolt_Upgrades Bolt_Upgrades @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
+
+//Ammo_Handgun Handgun_Ammo @ std::mem::find_sequence(0,  0x70, 0x69, 0x73, 0x74, 0x6F, 0x6C, 0x2F, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64, 0x00, 0x00, 0x00);
+
 // TODOs
 
-// Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard"); - can be present more than once - like matchstick below need to search for following pattern to also match 00 00 00 ?? FF FF FF FF 00 00 00 ??
+//Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard"); - can be present more than once - like matchstick below need to search for following pattern to also match 00 00 00 ?? FF FF FF FF 00 00 00 ??
 
 //zwei/player/matchstick 000000??FFFFF000000??
 

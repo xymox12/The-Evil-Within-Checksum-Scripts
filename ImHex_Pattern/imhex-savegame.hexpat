@@ -6,49 +6,54 @@
 import std.mem;
 import std.string;
 import std.array;
-import hex.http;
 import std.io;
 
 
 /// Entire stream minus checksum (4)
 u64 data_len = std::mem::size() - 32;
 
+// Define an enum for the upgrade level to enhance readability
+enum UpgradeLevel : u32 {
+    LEVEL_1 = 1,
+    LEVEL_2 = 2,
+    LEVEL_3 = 3,
+    LEVEL_4 = 4,
+    LEVEL_5 = 5
+};
+
 struct Header {
     u32 Checksum ;
 };
 
 struct WeaponUpgrade {
-    u8 Damage_Multiplier [[color("003f5c"),comment("Integer: 1 - 5")]];
-    padding[3];
-    u8 Fire_Rate [[color("374c80"),comment("Integer: 1 - 5")]];
-    padding[3];
-    u8 Reload_Time [[color("7a5195"),comment("Integer: 1 - 5")]];
-    padding[7];
-    u8 Clip_Capacity [[color("bc5090"),comment("Integer: 1 - 5")]];
-    padding[3];
-    u8 Accuracy [[color("ef5675"),comment("Integer: 1 - 5")]];
-    padding[3];
-    u8 Critical [[color("ff764a"),comment("Integer: 1 - 5")]];
-    padding[3];
-    u8 Stock [[color("ffa600"),comment("Integer: 1 - 5")]];
+   be UpgradeLevel Damage_Multiplier;
+   be UpgradeLevel Fire_Rate;
+   be UpgradeLevel Reload_Time;
+   be u32 UnKnown [[hidden]];
+   be UpgradeLevel Clip_Capacity;
+   be UpgradeLevel Accuracy;
+   be UpgradeLevel Critical;
+   be UpgradeLevel Stock;
 };
 
 
 struct CrossBowBlock {
-    char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
+    $ -= 0x04;
+    le u32 strlen;
+    char Upgrade[strlen];
     padding[46];         
-    u8 Clip_Capacity [[color("bc5090"),comment("Integer: 1 - 5")]];
+    u8 Clip_Capacity;
     padding[19];
-    u8 Critical [[color("ff764a"),comment("Integer: 1 - 5")]];
+    u8 Critical;
     padding[3];
-    u8 Stock [[color("ffa600"),comment("Integer: 1 - 5")]];
+    u8 Stock;
 };
 
 struct WeaponBlock {
-    char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
-    padding[4];         
-    padding[16];
-    padding[14];
+    $ -= 0x04;
+    le u32 strlen;
+    char Upgrade[strlen];
+    padding[31];         
     WeaponUpgrade Weapon_Upgrade; // The embedded weapon data
 };
 
@@ -97,12 +102,7 @@ struct Trap_Parts {
     be u32 Parts [[color("50c878"),comment("Integer")]];
 };
 
-struct Ammo_Handgun {
-    padding[15];
-    be u32 Ammo;
-    padding[4];
-    be u32 Clip;
-};
+
 
 Header Header @ 0x00;
 
@@ -118,17 +118,3 @@ Trap_Parts Parts @ std::mem::find_string(0,"zwei/player/trap_parts");
 Stock Stock @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
 
 Bolt_Upgrades Bolt_Upgrades @ std::mem::find_sequence(0,0x67, 0x61, 0x6D, 0x65, 0x66, 0x6C, 0x61, 0x67, 0x2F, 0x64, 0x6C, 0x63, 0x33, 0x5F, 0x62, 0x6F, 0x78, 0x6D, 0x61, 0x6E, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x79);
-
-
-//Ammo_Handgun Handgun_Ammo @ std::mem::find_sequence(0,  0x70, 0x69, 0x73, 0x74, 0x6F, 0x6C, 0x2F, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64, 0x00, 0x00, 0x00);
-
-// TODOs
-
-//Ammo_Handgun Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard"); - can be present more than once - like matchstick below need to search for following pattern to also match 00 00 00 ?? FF FF FF FF 00 00 00 ??
-
-//zwei/player/matchstick 000000??FFFFF000000??
-
-// Death count: final 'weapon/' string + weapon-name + padding[104] + deathcount word value
-
-
-//std::print("{0}", hex::http::get("api.hashify.net/hash/md5/hex?value=helloWorld"));

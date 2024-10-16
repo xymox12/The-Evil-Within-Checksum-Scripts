@@ -28,19 +28,23 @@ struct Ammo {
      }
 };
 
-
-
-struct Weapon_Ammo {
-
-    Ammo Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard");
-    Ammo Matches @ std::mem::find_string(0,"zwei/player/matchstick");
-
+struct Matches {
+    $ -= 0x04;
+    le u32 strlen [[hidden]];
+    char Ammo[strlen] [[hidden]];
+    be u32 Loaded;
+    padding[4];
+    be u32 Capacity;
 };
 
 
+struct Weapon_Ammo {
+    Ammo Handgun_Ammo @ std::mem::find_string(0,"ammo/pistol/standard");
+};
+
+
+Matches Matches @ std::mem::find_string(0,"zwei/player/matchstick");
 Weapon_Ammo Weapon_Ammo @ 0x00;  
-
-
 
 
 // Death count: final 'weapon/' string + weapon-name + padding[104] + deathcount word value

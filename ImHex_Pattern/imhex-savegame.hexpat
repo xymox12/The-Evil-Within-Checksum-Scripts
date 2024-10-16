@@ -1,4 +1,4 @@
-#pragma author YourName
+#pragma author 
 #pragma description Weapon Upgrades Binary File
 #pragma history
 #pragma   0.1  2024-08-08 Initial support
@@ -26,14 +26,14 @@ struct Header {
 };
 
 struct WeaponUpgrade {
-   be UpgradeLevel Damage_Multiplier;
-   be UpgradeLevel Fire_Rate;
-   be UpgradeLevel Reload_Time;
-   be u32 UnKnown [[hidden]];
-   be UpgradeLevel Clip_Capacity;
-   be UpgradeLevel Accuracy;
-   be UpgradeLevel Critical;
-   be UpgradeLevel Stock;
+    be UpgradeLevel Damage_Multiplier;
+    be UpgradeLevel Fire_Rate;
+    be UpgradeLevel Reload_Time;
+    be u32 [[hidden]];
+    be UpgradeLevel Clip_Capacity;
+    be UpgradeLevel Accuracy;
+    be UpgradeLevel Critical;
+    be UpgradeLevel Stock;
 };
 
 
@@ -41,12 +41,11 @@ struct CrossBowBlock {
     $ -= 0x04;
     le u32 strlen;
     char Upgrade[strlen];
-    padding[46];         
-    u8 Clip_Capacity;
-    padding[19];
-    u8 Critical;
-    padding[3];
-    u8 Stock;
+    padding[43];         
+    be u32 Clip_Capacity;
+    padding[16];
+    be u32 Critical;
+    be u32 Stock;
 };
 
 struct WeaponBlock {
@@ -58,48 +57,42 @@ struct WeaponBlock {
 };
 
 struct Stock {
-    padding[504];
-    u8 Life_Gauge;
-    padding[3];
-    u8 Maximum_Sprint;
-    padding[3];
-    u8 Melee_Damage;
-    padding[3];
-    u8 Syringe_Recovery;
+    padding[501];
+    be u32 Life_Gauge;
+    be u32 Maximum_Sprint;
+    be u32 Melee_Damage;
+    be u32 Syringe_Recovery;
     padding[4];
     padding[4];
+    padding[4];;
+    be u32 Granades;
+    be u32 Syringes;
     padding[4];
-    padding[3];
-    u8 Granades;
-    padding[3];
-    u8 Syringes;
-    padding[4];
-    padding[3];
-    u8 Matches; 
+    be u32 Matches; 
 };
 
 
 struct Bolt_Upgrades {
-    padding[548];
-    u8 Explosive;
-    padding[3];
-    u8 Shock;
-    padding[3];
-    u8 Freeze;
-    padding[3];
-    u8 Flash;
-    padding[3];
-    u8 Harpoon; 
+    padding[545];
+    be u32 Explosive;
+    be u32 Shock;
+    be u32 Freeze;
+    be u32 Flash;
+    be u32 Harpoon; 
 };
 
 struct Green_Gel {
-    char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
-    be u32 Gel [[color("50c878"),comment("Integer")]];
+    $ -= 0x04;
+    le u32 strlen;
+    char Upgrade[strlen];
+    be u32 Gel;
 };
 
 struct Trap_Parts {
-    char Upgrade[while(std::mem::read_unsigned($, 1) != 0x00)][[hidden]];
-    be u32 Parts [[color("50c878"),comment("Integer")]];
+    $ -= 0x04;
+    le u32 strlen;
+    char Upgrade[strlen];
+    be u32 Parts;
 };
 
 
